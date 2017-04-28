@@ -41,5 +41,19 @@ using namespace std;
 #define DUPLICATE_CREDIT_LEGENDARY 200
 
 int main(void){
+  string userInput;
+  int tracker;
+  do{
+  cout << "Enter 'N' for normal Overwatch Loot 'E' for event only Overwatch Loot or 'B' for both" << endl;
+  cin >> userInput;
+  }while(userInput != "N" && userInput != "n" && userInput != "E" && userInput != "e" && userInput != "B" && userInput != "b" &&)
+  switch (userInput)
+    case "N":  tracker = NORMAL; break;
+    case "n":  tracker = NORMAL; break;
+    case "E":  tracker = EVENT; break;
+    case "e":  tracker = EVENT; break;
+    case "B":  tracker = BOTH; break;
+    case "b":  tracker = BOTH; break;
+
 
 }
