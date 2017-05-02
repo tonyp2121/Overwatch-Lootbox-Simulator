@@ -18,6 +18,10 @@ using namespace std;
 #define PERCENT_CHANCE_LEGENDARY 255
 #define PERCENT_CHANCE_TOTAL 10000
 
+#define PERCENT_CHANCE_RARE_CURRENCY 411
+#define PERCENT_CHANCE_EPIC_CURRENCY 243      // I can find if its a currency if we see if its greater than common chance but less thanc ommon chance + currency chance
+#define PERCENT_CHANCE_LEGENDARY_CURRENCY 42
+
 #define NORMAL_COMMON 848
 #define NORMAL_RARE 295
 #define NORMAL_EPIC 233
