@@ -84,8 +84,13 @@ int main(void){
       // in our bool it will go COMMON << RARE << EPIC << LEGENDARY and events will come after that.
       // Event Items are guaranteed at least one per event loot box
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
+      bool allItems = false;
+      lootBoxCount = 0;
+      UserCreditAmount = 0;
+      while(!allItems){
       int rareCounter = 0;
       int randomChance;
+      lootBoxCount++;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
         if (randomChance > PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
@@ -94,19 +99,22 @@ int main(void){
 
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
+          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
+          else{
 
+          }
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
-
+          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){UserCreditAmount += 150;}
         }
         else{ //this menas we got a legendary
-
+          if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAMount+=500;}
         }
 
       }
 
 
-
+    }
     }
 
 }
