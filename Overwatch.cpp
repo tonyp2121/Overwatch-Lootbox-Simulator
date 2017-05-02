@@ -12,10 +12,11 @@ using namespace std;
 #define EVENT 1
 #define BOTH 2
 
-#define PERCENT_CHANCE_COMMON 58.66
-#define PERCENT_CHANCE_RARE   31.69
-#define PERCENT_CHANCE_EPIC   7.22
-#define PERCENT_CHANCE_LEGENDARY 2.43
+#define PERCENT_CHANCE_COMMON 5866
+#define PERCENT_CHANCE_RARE   3169
+#define PERCENT_CHANCE_EPIC   722
+#define PERCENT_CHANCE_LEGENDARY 243
+#define PERCENT_CHANCE_TOTAL 10000
 
 #define NORMAL_COMMON 848
 #define NORMAL_RARE 295
@@ -77,7 +78,28 @@ int main(void){
       // this is where the most of the work is done.
       // so first off we go open up a new loot box making sure at least one of them is a rare or better
       // in our bool it will go COMMON << RARE << EPIC << LEGENDARY and events will come after that.
-      // Event Items are guaranteed at least one. per event loot box
+      // Event Items are guaranteed at least one per event loot box
+      // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
+      int rareCounter = 0;
+      int randomChance;
+      for(int j = 0;j < 4; j++){
+        randomChance = rand() % PERCENT_CHANCE_TOTAL;
+        if (randomChance > PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
+        if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
+        if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
+
+        }
+        else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
+
+        }
+        else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
+
+        }
+        else{ //this menas we got a legendary
+
+        }
+
+      }
 
 
 
