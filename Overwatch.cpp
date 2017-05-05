@@ -112,9 +112,9 @@ int main(void){
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
           else{
             switch(trackerItemPoolType){
-              case NORMAL: randomChance = rand % NORMAL_RARE; itemsToAdd = NORMAL_COMMON; break;
-              case EVENT: randomChance = rand % EVENT_RARE; itemsToAdd = EVENT_COMMON; break;
-              case BOTH: randomChance = rand % BOTH_RARE; itemsToAdd = BOTH_COMMON; break;
+              case NORMAL: randomChance = fmod(rand(), NORMAL_RARE); itemsToAdd = NORMAL_COMMON; break;
+              case EVENT: randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = EVENT_COMMON; break;
+              case BOTH: randomChance = fmod(rand(), BOTH_RARE); itemsToAdd = BOTH_COMMON; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=15;}
             else{item[randomChance + itemsToAdd] = true;}
@@ -124,21 +124,21 @@ int main(void){
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){UserCreditAmount += 150;}
           else{
             switch(trackerItemPoolType){
-              case NORMAL: randomChance = rand % NORMAL_EPIC; itemsToAdd = NORMAL_COMMON + NORMAL_RARE; break;
-              case EVENT: randomChance = rand % EVENT_EPIC; itemsToAdd = EVENT_COMMON + EVENT_RARE; break;
-              case BOTH: randomChance = rand % BOTH_EPIC; itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
+              case NORMAL: randomChance = fmod(rand(), NORMAL_EPIC); itemsToAdd = NORMAL_COMMON + NORMAL_RARE; break;
+              case EVENT: randomChance = fmod(rand(), EVENT_EPIC); itemsToAdd = EVENT_COMMON + EVENT_RARE; break;
+              case BOTH: randomChance = fmod(rand(), BOTH_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=50;}
             else{item[randomChance + itemsToAdd] = true;}
           }
         }
         else{ //this menas we got a legendary
-          if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAMount+=500;}
+          if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAmount+=500;}
           else{
             switch(trackerItemPoolType){
-              case NORMAL: randomChance = rand % NORMAL_LEGENDARY; itemsToAdd = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC; break;
-              case EVENT: randomChance = rand % EVENT_LEGENDARY; itemsToAdd = EVENT_COMMON + EVENT_RARE + EVENT_EPIC; break;
-              case BOTH: randomChance = rand % BOTH_LEGENDARY; itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
+              case NORMAL: randomChance = fmod(rand(), NORMAL_LEGENDARY); itemsToAdd = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC; break;
+              case EVENT: randomChance = fmod(rand(), EVENT_LEGENDARY); itemsToAdd = EVENT_COMMON + EVENT_RARE + EVENT_EPIC; break;
+              case BOTH: randomChance = fmod(rand(), BOTH_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=200;}
             else{item[randomChance + itemsToAdd] = true;}
