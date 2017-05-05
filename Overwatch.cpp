@@ -59,6 +59,9 @@ int main(void){
   srand(time(NULL));
   string userInput;
   bool item[BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY];
+  for (int i = 0; i < BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; i++){
+    item[i]= false;
+  }
   int lootBoxCount = 0;
   int trackerItemPoolType, trackerHowManyItemsInPool, trackerBuy;
   int UserCreditAmount;
@@ -96,19 +99,33 @@ int main(void){
         if (randomChance > PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
         if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
-
+          randomChance = rand % NORMAL_COMMON;
+          if(item[randomChance]){UserCreditAmount+=5;}
+          else{item[randomChance] = true;}
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
           else{
-
+            randomChance = rand % NORMAL_RARE;
+            if(item[randomChance + NORMAL_COMMON]){UserCreditAmount+=15;}
+            else{item[randomChance + NORMAL_COMMON] = true;}
           }
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){UserCreditAmount += 150;}
+          else{
+            randomChance = rand % NORMAL_EPIC;
+            if(item[randomChance + NORMAL_COMMON + NORMAL_RARE]){UserCreditAmount+=50;}
+            else{item[randomChance + NORMAL_COMMON + NORMAL_RARE] = true;}
+          }
         }
         else{ //this menas we got a legendary
           if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAMount+=500;}
+          else{
+            randomChance = rand % NORMAL_LEGENDARY;
+            if(item[randomChance + NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC]){UserCreditAmount+=200;}
+            else{item[randomChance + NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC] = true;}
+          }
         }
 
       }
