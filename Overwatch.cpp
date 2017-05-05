@@ -93,38 +93,55 @@ int main(void){
       while(!allItems){
       int rareCounter = 0;
       int randomChance;
+      int itemsToAdd;
       lootBoxCount++;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
         if (randomChance > PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
         if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
-          randomChance = rand % NORMAL_COMMON;
+          switch(trackerItemPoolType){
+            case NORMAL: randomChance = fmod(rand(), NORMAL_COMMON); break;
+            case EVENT: randomChance = fmod(rand(), EVENT_COMMON); break;
+            case BOTH: randomChance = fmod(rand(), BOTH_COMMON); break;
+          }
           if(item[randomChance]){UserCreditAmount+=5;}
           else{item[randomChance] = true;}
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
           else{
-            randomChance = rand % NORMAL_RARE;
-            if(item[randomChance + NORMAL_COMMON]){UserCreditAmount+=15;}
-            else{item[randomChance + NORMAL_COMMON] = true;}
+            switch(trackerItemPoolType){
+              case NORMAL: randomChance = rand % NORMAL_RARE; itemsToAdd = NORMAL_COMMON; break;
+              case EVENT: randomChance = rand % EVENT_RARE; itemsToAdd = EVENT_COMMON; break;
+              case BOTH: randomChance = rand % BOTH_RARE; itemsToAdd = BOTH_COMMON; break;
+            }
+            if(item[randomChance + itemsToAdd]){UserCreditAmount+=15;}
+            else{item[randomChance + itemsToAdd] = true;}
           }
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){UserCreditAmount += 150;}
           else{
-            randomChance = rand % NORMAL_EPIC;
-            if(item[randomChance + NORMAL_COMMON + NORMAL_RARE]){UserCreditAmount+=50;}
-            else{item[randomChance + NORMAL_COMMON + NORMAL_RARE] = true;}
+            switch(trackerItemPoolType){
+              case NORMAL: randomChance = rand % NORMAL_EPIC; itemsToAdd = NORMAL_COMMON + NORMAL_RARE; break;
+              case EVENT: randomChance = rand % EVENT_EPIC; itemsToAdd = EVENT_COMMON + EVENT_RARE; break;
+              case BOTH: randomChance = rand % BOTH_EPIC; itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
+            }
+            if(item[randomChance + itemsToAdd]){UserCreditAmount+=50;}
+            else{item[randomChance + itemsToAdd] = true;}
           }
         }
         else{ //this menas we got a legendary
           if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAMount+=500;}
           else{
-            randomChance = rand % NORMAL_LEGENDARY;
-            if(item[randomChance + NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC]){UserCreditAmount+=200;}
-            else{item[randomChance + NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC] = true;}
+            switch(trackerItemPoolType){
+              case NORMAL: randomChance = rand % NORMAL_LEGENDARY; itemsToAdd = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC; break;
+              case EVENT: randomChance = rand % EVENT_LEGENDARY; itemsToAdd = EVENT_COMMON + EVENT_RARE + EVENT_EPIC; break;
+              case BOTH: randomChance = rand % BOTH_LEGENDARY; itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
+            }
+            if(item[randomChance + itemsToAdd]){UserCreditAmount+=200;}
+            else{item[randomChance + itemsToAdd] = true;}
           }
         }
 
