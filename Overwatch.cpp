@@ -87,13 +87,21 @@ int main(void){
       // in our bool it will go COMMON << RARE << EPIC << LEGENDARY and events will come after that.
       // Event Items are guaranteed at least one per event loot box
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
-      bool allItems = false;
+
+      int totalNumberOfItemsTracker;
+      switch (trackerItemPoolType){
+        case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY; break;
+        case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; break;
+        case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break;
+      }
       lootBoxCount = 0;
+      int totalNumberOfItemsHeld = 0;
       UserCreditAmount = 0;
-      while(!allItems){
+      while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
       int rareCounter = 0;
       int randomChance;
       int itemsToAdd;
+
       lootBoxCount++;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
@@ -106,7 +114,7 @@ int main(void){
             case BOTH: randomChance = fmod(rand(), BOTH_COMMON); break;
           }
           if(item[randomChance]){UserCreditAmount+=5;}
-          else{item[randomChance] = true;}
+          else{item[randomChance] = true; totalNumberOfItemsHeld++;}
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
@@ -117,7 +125,7 @@ int main(void){
               case BOTH: randomChance = fmod(rand(), BOTH_RARE); itemsToAdd = BOTH_COMMON; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=15;}
-            else{item[randomChance + itemsToAdd] = true;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
           }
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
@@ -129,7 +137,7 @@ int main(void){
               case BOTH: randomChance = fmod(rand(), BOTH_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=50;}
-            else{item[randomChance + itemsToAdd] = true;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
           }
         }
         else{ //this menas we got a legendary
@@ -141,13 +149,12 @@ int main(void){
               case BOTH: randomChance = fmod(rand(), BOTH_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
             }
             if(item[randomChance + itemsToAdd]){UserCreditAmount+=200;}
-            else{item[randomChance + itemsToAdd] = true;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
           }
         }
 
-      }
-
-
+      }  // end of one loot box open loop
+      lootBoxCount++;
     }
     }
 
