@@ -81,7 +81,7 @@ int main(void){
 }
 
 
-    for(int i = 0; i < 10000; i++){
+    for(int i = 0; i < 1; i++){
       // this is where the most of the work is done.
       // so first off we go open up a new loot box making sure at least one of them is a rare or better
       // in our bool it will go COMMON << RARE << EPIC << LEGENDARY and events will come after that.
@@ -97,7 +97,7 @@ int main(void){
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
       UserCreditAmount = 0;
-      while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
+    while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
       int rareCounter = 0;
       int randomChance;
       int itemsToAdd;
@@ -156,6 +156,7 @@ int main(void){
       }  // end of one loot box open loop
       lootBoxCount++;
     }
+    cout << endl << lootBoxCount << endl;
     }
 
 }
