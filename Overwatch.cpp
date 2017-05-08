@@ -62,7 +62,7 @@ int main(void){
 
   int lootBoxCount = 0;
   int trackerItemPoolType, trackerHowManyItemsInPool, trackerBuy;
-  int UserCreditAmount;
+  int userCreditAmount;
   do{
   cout << "Enter 'N' for normal Overwatch Loot 'E' for event only Overwatch Loot or 'B' for both" << endl;
   cin >> userInput;
@@ -80,9 +80,9 @@ int main(void){
   case BOTH: trackerHowManyItemsInPool = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break;
   }
   bool *item = new bool[trackerHowManyItemsInPool];
-  for (int i = 0; i < trackerHowManyItemsInPool; i++){
-    item[i]= false;
-}
+  // for (int i = 0; i < trackerHowManyItemsInPool; i++){
+  // item[i]= false;
+  // }
 
 
     for(int i = 0; i < 1; i++){
@@ -92,21 +92,22 @@ int main(void){
       // Event Items are guaranteed at least one per event loot box
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
 
+      int heldItems[4] = {0};
+      int maxHeldItems[4];
+
       int totalNumberOfItemsTracker;
       switch (trackerItemPoolType){
-        case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY; break;
-        case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; break;
-        case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break;
+        case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY;  break;
+        case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; maxHeldItems[0] = EVENT_COMMON; maxHeldItems[1] = EVENT_RARE; maxHeldItems[2] = EVENT_EPIC; maxHeldItems[3] = EVENT_LEGENDARY; break;
+        case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break; maxHeldItems[0] = BOTH_COMMON; maxHeldItems[1] = BOTH_RARE; maxHeldItems[2] = BOTH_EPIC; maxHeldItems[3] = BOTH_LEGENDARY;
       }
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
-      UserCreditAmount = 0;
-      bool allItems[4]; // where allItems[0] = common allItems[1] = rare etc.
+      userCreditAmount = 0;
     while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
-      int rareCounter = 0;
       int randomChance;
       int itemsToAdd;
-
+      int rareCounter = 0;
       lootBoxCount++;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
@@ -118,49 +119,102 @@ int main(void){
             case EVENT: randomChance = fmod(rand(), EVENT_COMMON); break;
             case BOTH: randomChance = fmod(rand(), BOTH_COMMON); break;
           }
-          if(item[randomChance]){UserCreditAmount+=5;}
-          else{item[randomChance] = true; totalNumberOfItemsHeld++;}
+          if(item[randomChance]){userCreditAmount+=5;}
+          else{item[randomChance] = true; totalNumberOfItemsHeld++; heldItems[0]++;}
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
-          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){UserCreditAmount+=50;}
+          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){userCreditAmount+=50;}
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_RARE); itemsToAdd = NORMAL_COMMON; break;
               case EVENT: randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = EVENT_COMMON; break;
               case BOTH: randomChance = fmod(rand(), BOTH_RARE); itemsToAdd = BOTH_COMMON; break;
             }
-            if(item[randomChance + itemsToAdd]){UserCreditAmount+=15;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
+            if(item[randomChance + itemsToAdd]){userCreditAmount+=15;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++;}
           }
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
-          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){UserCreditAmount += 150;}
+          if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){userCreditAmount += 150;}
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_EPIC); itemsToAdd = NORMAL_COMMON + NORMAL_RARE; break;
               case EVENT: randomChance = fmod(rand(), EVENT_EPIC); itemsToAdd = EVENT_COMMON + EVENT_RARE; break;
               case BOTH: randomChance = fmod(rand(), BOTH_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
             }
-            if(item[randomChance + itemsToAdd]){UserCreditAmount+=50;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
+            if(item[randomChance + itemsToAdd]){userCreditAmount+=50;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++;}
           }
         }
         else{ //this menas we got a legendary
-          if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){UserCreditAmount+=500;}
+          if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){userCreditAmount+=500;}
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_LEGENDARY); itemsToAdd = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC; break;
               case EVENT: randomChance = fmod(rand(), EVENT_LEGENDARY); itemsToAdd = EVENT_COMMON + EVENT_RARE + EVENT_EPIC; break;
               case BOTH: randomChance = fmod(rand(), BOTH_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
             }
-            if(item[randomChance + itemsToAdd]){UserCreditAmount+=200;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++;}
+            if(item[randomChance + itemsToAdd]){userCreditAmount+=200;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++;}
           }
         }
 
       }  // end of one loot box open loop
       lootBoxCount++;
+      switch (trackerItemPoolType){
+      case NORMAL:
+        while (userCreditAmount >= 25 && heldItems[0] != maxHeldItems[0]){
+          for(int i = 0; i < maxHeldItems[0]; i++){
+            if (!item[i]){item[i] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 25; break;}
+          }
+        }
+        itemsToAdd = maxHeldItems[0];
+        while (userCreditAmount >= 75 && heldItems[1] != maxHeldItems[1]){
+          for(int i = 0; i < maxHeldItems[1]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 75; break;}
+          }
+        }
+        itemsToAdd += maxHeldItems[1];
+        while (userCreditAmount >= 250 && heldItems[2] != maxHeldItems[2]){
+          for(int i = 0; i < maxHeldItems[2]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 250; break;}
+          }
+        }
+        itemsToAdd += maxHeldItems[2];
+        while (userCreditAmount >= 1000 && heldItems[1] != maxHeldItems[1]){
+          for(int i = 0; i < maxHeldItems[3]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 1000;break;}
+          }
+        }
+        break;
 
+        case EVENT:
+        while (userCreditAmount >= 75 && heldItems[0] != maxHeldItems[0]){
+          for(int i = 0; i < maxHeldItems[0]; i++){
+            if (!item[i]){item[i] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 75; break;}
+          }
+        }
+        itemsToAdd = maxHeldItems[0];
+        while (userCreditAmount >= 225 && heldItems[1] != maxHeldItems[1]){
+          for(int i = 0; i < maxHeldItems[1]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 225; break;}
+          }
+        }
+        itemsToAdd += maxHeldItems[1];
+        while (userCreditAmount >= 750 && heldItems[2] != maxHeldItems[2]){
+          for(int i = 0; i < maxHeldItems[2]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 750; break;}
+          }
+        }
+        itemsToAdd += maxHeldItems[2];
+        while (userCreditAmount >= 3000 && heldItems[1] != maxHeldItems[1]){
+          for(int i = 0; i < maxHeldItems[3]; i++){
+            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 3000;break;}
+          }
+        }
+        break;
+
+      }
     }
     cout << endl << lootBoxCount << endl;
     }
