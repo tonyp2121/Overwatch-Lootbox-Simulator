@@ -58,10 +58,8 @@ using namespace std;
 int main(void){
   srand(time(NULL));
   string userInput;
-  bool item[BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY];
-  for (int i = 0; i < BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; i++){
-    item[i]= false;
-  }
+  //bool item[BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY];
+
   int lootBoxCount = 0;
   int trackerItemPoolType, trackerHowManyItemsInPool, trackerBuy;
   int UserCreditAmount;
@@ -74,10 +72,16 @@ int main(void){
   else if(userInput == "E" || userInput == "e"){trackerItemPoolType = EVENT;}
   else if(userInput == "B" || userInput == "b"){trackerItemPoolType = BOTH;}
 
+
+
   switch(trackerItemPoolType){
   case NORMAL: trackerHowManyItemsInPool = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY; break;
   case EVENT: trackerHowManyItemsInPool = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; break;
   case BOTH: trackerHowManyItemsInPool = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break;
+  }
+  bool *item = new bool[trackerHowManyItemsInPool];
+  for (int i = 0; i < trackerHowManyItemsInPool; i++){
+    item[i]= false;
 }
 
 
@@ -97,6 +101,7 @@ int main(void){
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
       UserCreditAmount = 0;
+      bool allItems[4]; // where allItems[0] = common allItems[1] = rare etc.
     while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
       int rareCounter = 0;
       int randomChance;
@@ -155,6 +160,7 @@ int main(void){
 
       }  // end of one loot box open loop
       lootBoxCount++;
+
     }
     cout << endl << lootBoxCount << endl;
     }
