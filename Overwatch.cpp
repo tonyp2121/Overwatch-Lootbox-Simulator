@@ -92,7 +92,7 @@ int main(void){
       // Event Items are guaranteed at least one per event loot box
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
 
-      int heldItems[4] = {0};
+      int heldItems[4] = {0,0,0,0};
       int maxHeldItems[4];
 
       int totalNumberOfItemsTracker;
@@ -108,10 +108,9 @@ int main(void){
       int randomChance;
       int itemsToAdd;
       int rareCounter = 0;
-      lootBoxCount++;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
-        if (randomChance > PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
+        if (randomChance >= PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
         if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
           switch(trackerItemPoolType){
@@ -121,6 +120,7 @@ int main(void){
           }
           if(item[randomChance]){userCreditAmount+=5;}
           else{item[randomChance] = true; totalNumberOfItemsHeld++; heldItems[0]++;}
+          //cout << "I got a common" << endl;
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE_CURRENCY){userCreditAmount+=50;}
@@ -133,6 +133,7 @@ int main(void){
             if(item[randomChance + itemsToAdd]){userCreditAmount+=15;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++;}
           }
+          //cout << "I got a rare" << endl;
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){ // this will mean we got an epic
           if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC_CURRENCY){userCreditAmount += 150;}
@@ -145,6 +146,7 @@ int main(void){
             if(item[randomChance + itemsToAdd]){userCreditAmount+=50;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++;}
           }
+          //cout << "I got a epic" << endl;
         }
         else{ //this menas we got a legendary
           if (randomChance  < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY_CURRENCY){userCreditAmount+=500;}
@@ -157,10 +159,14 @@ int main(void){
             if(item[randomChance + itemsToAdd]){userCreditAmount+=200;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++;}
           }
+          //cout << "I got a legendary" << endl;
         }
 
       }  // end of one loot box open loop
       lootBoxCount++;
+      cout << lootBoxCount << endl;
+      cout << endl;
+      // cout << userCreditAmount << endl;  here for debugging
       switch (trackerItemPoolType){
       case NORMAL:
         while (userCreditAmount >= 25 && heldItems[0] != maxHeldItems[0]){
@@ -181,7 +187,7 @@ int main(void){
           }
         }
         itemsToAdd += maxHeldItems[2];
-        while (userCreditAmount >= 1000 && heldItems[1] != maxHeldItems[1]){
+        while (userCreditAmount >= 1000 && heldItems[3] != maxHeldItems[3]){
           for(int i = 0; i < maxHeldItems[3]; i++){
             if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 1000;break;}
           }
