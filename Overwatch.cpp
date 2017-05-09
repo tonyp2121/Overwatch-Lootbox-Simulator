@@ -74,18 +74,23 @@ int main(void){
 
 
 
-  switch(trackerItemPoolType){
-  case NORMAL: trackerHowManyItemsInPool = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY; break;
-  case EVENT: trackerHowManyItemsInPool = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; break;
-  case BOTH: trackerHowManyItemsInPool = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break;
-  }
-  bool *item = new bool[trackerHowManyItemsInPool];
+
+
   // for (int i = 0; i < trackerHowManyItemsInPool; i++){
   // item[i]= false;
   // }
+  int maxHeldItems[4];
 
-
-    for(int i = 0; i < 1; i++){
+  int totalNumberOfItemsTracker;
+  switch (trackerItemPoolType){
+    case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY;  break;
+    case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; maxHeldItems[0] = EVENT_COMMON; maxHeldItems[1] = EVENT_RARE; maxHeldItems[2] = EVENT_EPIC; maxHeldItems[3] = EVENT_LEGENDARY; break;
+    case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY;  maxHeldItems[0] = BOTH_COMMON; maxHeldItems[1] = BOTH_RARE; maxHeldItems[2] = BOTH_EPIC; maxHeldItems[3] = BOTH_LEGENDARY; break;
+  }
+  bool *item = new bool[trackerHowManyItemsInPool];
+  int lootBoxAvg = 0;
+  int loopCount = 2;
+    for(int i = 0; i < loopCount; i++){
       // this is where the most of the work is done.
       // so first off we go open up a new loot box making sure at least one of them is a rare or better
       // in our bool it will go COMMON << RARE << EPIC << LEGENDARY and events will come after that.
@@ -93,14 +98,7 @@ int main(void){
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
 
       int heldItems[4] = {0,0,0,0};
-      int maxHeldItems[4];
-
-      int totalNumberOfItemsTracker;
-      switch (trackerItemPoolType){
-        case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY;  break;
-        case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; maxHeldItems[0] = EVENT_COMMON; maxHeldItems[1] = EVENT_RARE; maxHeldItems[2] = EVENT_EPIC; maxHeldItems[3] = EVENT_LEGENDARY; break;
-        case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY; break; maxHeldItems[0] = BOTH_COMMON; maxHeldItems[1] = BOTH_RARE; maxHeldItems[2] = BOTH_EPIC; maxHeldItems[3] = BOTH_LEGENDARY;
-      }
+      if(i > 0) for (int k = 0; k < trackerHowManyItemsInPool; k++) item[k] = false; // set everything to 0 after the first go around
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
       userCreditAmount = 0;
@@ -164,65 +162,66 @@ int main(void){
 
       }  // end of one loot box open loop
       lootBoxCount++;
-      cout << lootBoxCount << endl;
-      cout << endl;
+      // cout << lootBoxCount << endl;
+      // cout << endl;
       // cout << userCreditAmount << endl;  here for debugging
       switch (trackerItemPoolType){
       case NORMAL:
         while (userCreditAmount >= 25 && heldItems[0] != maxHeldItems[0]){
-          for(int i = 0; i < maxHeldItems[0]; i++){
-            if (!item[i]){item[i] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 25; break;}
+          for(int k = 0; k < maxHeldItems[0]; k++){
+            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 25; break;}
           }
         }
         itemsToAdd = maxHeldItems[0];
         while (userCreditAmount >= 75 && heldItems[1] != maxHeldItems[1]){
-          for(int i = 0; i < maxHeldItems[1]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 75; break;}
+          for(int k = 0; k < maxHeldItems[1]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 75; break;}
           }
         }
         itemsToAdd += maxHeldItems[1];
         while (userCreditAmount >= 250 && heldItems[2] != maxHeldItems[2]){
-          for(int i = 0; i < maxHeldItems[2]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 250; break;}
+          for(int k = 0; k < maxHeldItems[2]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 250; break;}
           }
         }
         itemsToAdd += maxHeldItems[2];
         while (userCreditAmount >= 1000 && heldItems[3] != maxHeldItems[3]){
-          for(int i = 0; i < maxHeldItems[3]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 1000;break;}
+          for(int k = 0; k < maxHeldItems[3]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 1000;break;}
           }
         }
         break;
 
-        case EVENT:
+      case EVENT:
         while (userCreditAmount >= 75 && heldItems[0] != maxHeldItems[0]){
-          for(int i = 0; i < maxHeldItems[0]; i++){
-            if (!item[i]){item[i] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 75; break;}
+          for(int k = 0; k < maxHeldItems[0]; k++){
+            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 75; break;}
           }
         }
         itemsToAdd = maxHeldItems[0];
         while (userCreditAmount >= 225 && heldItems[1] != maxHeldItems[1]){
-          for(int i = 0; i < maxHeldItems[1]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 225; break;}
+          for(int k = 0; k < maxHeldItems[1]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 225; break;}
           }
         }
         itemsToAdd += maxHeldItems[1];
         while (userCreditAmount >= 750 && heldItems[2] != maxHeldItems[2]){
-          for(int i = 0; i < maxHeldItems[2]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 750; break;}
+          for(int k = 0; k < maxHeldItems[2]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 750; break;}
           }
         }
         itemsToAdd += maxHeldItems[2];
-        while (userCreditAmount >= 3000 && heldItems[1] != maxHeldItems[1]){
-          for(int i = 0; i < maxHeldItems[3]; i++){
-            if (!item[i + itemsToAdd]){item[i + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 3000;break;}
+        while (userCreditAmount >= 3000 && heldItems[3] != maxHeldItems[3]){
+          for(int k = 0; k < maxHeldItems[3]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 3000;break;}
           }
         }
         break;
 
       }
     }
+    lootBoxAvg += lootBoxCount;
     cout << endl << lootBoxCount << endl;
     }
-
+    cout << lootBoxAvg/loopCount << endl;
 }
