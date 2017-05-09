@@ -221,7 +221,7 @@ int main(void){
       }
     }
     lootBoxAvg += lootBoxCount;
-    cout << endl << lootBoxCount << endl;
+    // cout << endl << lootBoxCount << endl;
     }
     cout << lootBoxAvg/loopCount << endl;
 }
