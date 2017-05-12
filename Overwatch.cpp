@@ -16,6 +16,7 @@ using namespace std;
 #define PERCENT_CHANCE_RARE   3170
 #define PERCENT_CHANCE_EPIC   755
 #define PERCENT_CHANCE_LEGENDARY 255
+#define PERCENT_CHANCE_EVENT 666
 #define PERCENT_CHANCE_TOTAL 10000
 
 #define PERCENT_CHANCE_RARE_CURRENCY 411
@@ -89,7 +90,7 @@ int main(void){
   }
   bool *item = new bool[trackerHowManyItemsInPool];
   int lootBoxAvg = 0;
-  int loopCount = 2;
+  int loopCount = 1000;
     for(int i = 0; i < loopCount; i++){
       // this is where the most of the work is done.
       // so first off we go open up a new loot box making sure at least one of them is a rare or better
@@ -104,10 +105,17 @@ int main(void){
       userCreditAmount = 0;
     while(totalNumberOfItemsTracker != totalNumberOfItemsHeld){
       int randomChance;
+      int randomChanceEvent;
       int itemsToAdd;
       int rareCounter = 0;
+      int eventItemCounter = 0;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
+        bool isEventItem = false;
+        if (trackerItemPoolType == EVENT || trackerItemPoolType == BOTH){
+          randomChanceEvent = rand() % PERCENT_CHANCE_TOTAL;
+          if(randomChanceEvent < PERCENT_CHANCE_EVENT || eventItemCounter == 0 && j == 3){eventItemCounter++; isEventItem = true;}
+        }
         if (randomChance >= PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
         if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
