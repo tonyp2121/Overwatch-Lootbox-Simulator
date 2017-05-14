@@ -80,13 +80,12 @@ int main(void){
   // for (int i = 0; i < trackerHowManyItemsInPool; i++){
   // item[i]= false;
   // }
-  int maxHeldItems[4];
+  int maxHeldItems[8];
 
   int totalNumberOfItemsTracker;
   switch (trackerItemPoolType){
     case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY;  break;
-    case EVENT: totalNumberOfItemsTracker = EVENT_COMMON + EVENT_RARE + EVENT_EPIC + EVENT_LEGENDARY; maxHeldItems[0] = EVENT_COMMON; maxHeldItems[1] = EVENT_RARE; maxHeldItems[2] = EVENT_EPIC; maxHeldItems[3] = EVENT_LEGENDARY; break;
-    case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY;  maxHeldItems[0] = BOTH_COMMON; maxHeldItems[1] = BOTH_RARE; maxHeldItems[2] = BOTH_EPIC; maxHeldItems[3] = BOTH_LEGENDARY; break;
+    case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY; maxHeldItems[4] = EVENT_COMMON; maxHeldItems[5] = EVENT_RARE; maxHeldItems[6] = EVENT_EPIC; maxHeldItems[7] = EVENT_LEGENDARY; break;
   }
   bool *item = new bool[trackerHowManyItemsInPool];
   int lootBoxAvg = 0;
@@ -98,7 +97,7 @@ int main(void){
       // Event Items are guaranteed at least one per event loot box
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
 
-      int heldItems[4] = {0,0,0,0};
+      int heldItems[8] = {0,0,0,0,0,0,0,0};
       if(i > 0) for (int k = 0; k < trackerHowManyItemsInPool; k++) item[k] = false; // set everything to 0 after the first go around
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
@@ -109,9 +108,9 @@ int main(void){
       int itemsToAdd;
       int rareCounter = 0;
       int eventItemCounter = 0;
+      bool isEventItem = false;
       for(int j = 0;j < 4; j++){
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
-        bool isEventItem = false;
         if (trackerItemPoolType == EVENT || trackerItemPoolType == BOTH){
           randomChanceEvent = rand() % PERCENT_CHANCE_TOTAL;
           if(randomChanceEvent < PERCENT_CHANCE_EVENT || eventItemCounter == 0 && j == 3){eventItemCounter++; isEventItem = true;}
@@ -132,7 +131,7 @@ int main(void){
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_RARE); itemsToAdd = NORMAL_COMMON; break;
-              case BOTH: f (isEventItem){randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = BOTH_COMMON + NORMAL_RARE;} else{mod(rand(), NORMAL_RARE); itemsToAdd = BOTH_COMMON;}  break;
+              case BOTH: if (isEventItem){randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = BOTH_COMMON + NORMAL_RARE;} else{mod(rand(), NORMAL_RARE); itemsToAdd = BOTH_COMMON;}  break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=15;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++;}
@@ -144,8 +143,7 @@ int main(void){
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_EPIC); itemsToAdd = NORMAL_COMMON + NORMAL_RARE; break;
-              case EVENT: randomChance = fmod(rand(), EVENT_EPIC); itemsToAdd = EVENT_COMMON + EVENT_RARE; break;
-              case BOTH: randomChance = fmod(rand(), BOTH_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE; break;
+              case BOTH: if (isEventItem) {randomChance = fmod(rand(), EVENT_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE + NORMAL_EPIC;} else {randomChance = fmod(rand(), NORMAL_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE;} break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=50;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++;}
@@ -157,8 +155,7 @@ int main(void){
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_LEGENDARY); itemsToAdd = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC; break;
-              case EVENT: randomChance = fmod(rand(), EVENT_LEGENDARY); itemsToAdd = EVENT_COMMON + EVENT_RARE + EVENT_EPIC; break;
-              case BOTH: randomChance = fmod(rand(), BOTH_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC; break;
+              case BOTH: if (isEventItem) {randomChance = fmod(rand(), EVENT_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + NORMAL_EPIC;} else {randomChance = fmod(rand(), NORMAL_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC;} break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=200;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++;}
@@ -198,7 +195,12 @@ int main(void){
         }
         break;
 
-      case EVENT:
+      case BOTH:
+        while (userCreditAmount >= 25 && heldItems[0] != maxHeldItems[0]){
+          for(int k = 0; k < maxHeldItems[0]; k++){
+            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 25; break;}
+          }
+        }
         while (userCreditAmount >= 75 && heldItems[0] != maxHeldItems[0]){
           for(int k = 0; k < maxHeldItems[0]; k++){
             if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 75; break;}
