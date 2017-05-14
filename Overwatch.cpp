@@ -121,8 +121,7 @@ int main(void){
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
           switch(trackerItemPoolType){
             case NORMAL: randomChance = fmod(rand(), NORMAL_COMMON); break;
-            case EVENT: randomChance = fmod(rand(), EVENT_COMMON); break;
-            case BOTH: randomChance = fmod(rand(), BOTH_COMMON); break;
+            case BOTH: if (isEventItem){randomChance = fmod(rand(), EVENT_COMMON) + NORMAL_COMMON;} else{ fmod(rand(), NORMAL_COMMON);} break;
           }
           if(item[randomChance]){userCreditAmount+=5;}
           else{item[randomChance] = true; totalNumberOfItemsHeld++; heldItems[0]++;}
@@ -133,8 +132,7 @@ int main(void){
           else{
             switch(trackerItemPoolType){
               case NORMAL: randomChance = fmod(rand(), NORMAL_RARE); itemsToAdd = NORMAL_COMMON; break;
-              case EVENT: randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = EVENT_COMMON; break;
-              case BOTH: randomChance = fmod(rand(), BOTH_RARE); itemsToAdd = BOTH_COMMON; break;
+              case BOTH: f (isEventItem){randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = BOTH_COMMON + NORMAL_RARE;} else{mod(rand(), NORMAL_RARE); itemsToAdd = BOTH_COMMON;}  break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=15;}
             else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++;}
