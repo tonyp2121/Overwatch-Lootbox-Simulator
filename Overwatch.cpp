@@ -123,7 +123,7 @@ int main(void){
             case BOTH: if (isEventItem){randomChance = fmod(rand(), EVENT_COMMON) + NORMAL_COMMON;} else{ fmod(rand(), NORMAL_COMMON);} break;
           }
           if(item[randomChance]){userCreditAmount+=5;}
-          else{item[randomChance] = true; totalNumberOfItemsHeld++; heldItems[0]++;}
+          else{item[randomChance] = true; totalNumberOfItemsHeld++; if(isEventItem){heldItems[4]++;} else{heldItems[0]++;}}
           //cout << "I got a common" << endl;
         }
         else if(randomChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){ // this will mean we got a rare
@@ -134,7 +134,7 @@ int main(void){
               case BOTH: if (isEventItem){randomChance = fmod(rand(), EVENT_RARE); itemsToAdd = BOTH_COMMON + NORMAL_RARE;} else{mod(rand(), NORMAL_RARE); itemsToAdd = BOTH_COMMON;}  break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=15;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; if(isEventItem){heldItems[5]++;} else{heldItems[1]++;}}
           }
           //cout << "I got a rare" << endl;
         }
@@ -146,7 +146,7 @@ int main(void){
               case BOTH: if (isEventItem) {randomChance = fmod(rand(), EVENT_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE + NORMAL_EPIC;} else {randomChance = fmod(rand(), NORMAL_EPIC); itemsToAdd = BOTH_COMMON + BOTH_RARE;} break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=50;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; if(isEventItem){heldItems[6]++;} else{heldItems[2]++;}
           }
           //cout << "I got a epic" << endl;
         }
@@ -158,7 +158,7 @@ int main(void){
               case BOTH: if (isEventItem) {randomChance = fmod(rand(), EVENT_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + NORMAL_EPIC;} else {randomChance = fmod(rand(), NORMAL_LEGENDARY); itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC;} break;
             }
             if(item[randomChance + itemsToAdd]){userCreditAmount+=200;}
-            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++;}
+            else{item[randomChance + itemsToAdd] = true; totalNumberOfItemsHeld++; if(isEventItem){heldItems[7]++;} else{heldItems[3]++;}}
           }
           //cout << "I got a legendary" << endl;
         }
@@ -201,27 +201,46 @@ int main(void){
             if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 25; break;}
           }
         }
-        while (userCreditAmount >= 75 && heldItems[0] != maxHeldItems[0]){
-          for(int k = 0; k < maxHeldItems[0]; k++){
-            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[0]++; userCreditAmount-= 75; break;}
-          }
-        }
         itemsToAdd = maxHeldItems[0];
-        while (userCreditAmount >= 225 && heldItems[1] != maxHeldItems[1]){
+        while (userCreditAmount >= 75 && heldItems[1] != maxHeldItems[1]){
           for(int k = 0; k < maxHeldItems[1]; k++){
-            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 225; break;}
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[1]++; userCreditAmount-= 75; break;}
           }
         }
         itemsToAdd += maxHeldItems[1];
-        while (userCreditAmount >= 750 && heldItems[2] != maxHeldItems[2]){
+        while (userCreditAmount >= 250 && heldItems[2] != maxHeldItems[2]){
           for(int k = 0; k < maxHeldItems[2]; k++){
-            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 750; break;}
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[2]++; userCreditAmount-= 250; break;}
           }
         }
         itemsToAdd += maxHeldItems[2];
-        while (userCreditAmount >= 3000 && heldItems[3] != maxHeldItems[3]){
+        while (userCreditAmount >= 1000 && heldItems[3] != maxHeldItems[3]){
           for(int k = 0; k < maxHeldItems[3]; k++){
-            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 3000;break;}
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[3]++; userCreditAmount-= 1000;break;}
+          }
+        }
+        itemsToAdd = NORMAL_COMMON;
+        while (userCreditAmount >= 75 && heldItems[4] != maxHeldItems[4]){
+          for(int k = 0; k < maxHeldItems[4]; k++){
+            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[4]++; userCreditAmount-= 75; break;}
+          }
+        }
+        itemsToAdd = BOTH_COMMON + NORMAL_RARE;
+        while (userCreditAmount >= 225 && heldItems[5] != maxHeldItems[5]){
+          for(int k = 0; k < maxHeldItems[5]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[5]++; userCreditAmount-= 225; break;}
+          }
+        }
+        itemsToAdd = BOTH_COMMON + BOTH_RARE + NORMAL_EPIC;
+        while (userCreditAmount >= 750 && heldItems[6] != maxHeldItems[6]){
+          for(int k = 0; k < maxHeldItems[6]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[6]++; userCreditAmount-= 750; break;}
+          }
+        }
+        itemsToAdd = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + NORMAL_LEGENDARY;
+        while (userCreditAmount >= 3000 && heldItems[7] != maxHeldItems[7]){
+          for(int k = 0; k < maxHeldItems[7]; k++){
+            if (!item[k + itemsToAdd]){item[k + itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[7]++; userCreditAmount-= 3000;break;}
           }
         }
         break;
