@@ -62,32 +62,25 @@ int main(void){
   //bool item[BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY];
 
   int lootBoxCount = 0;
-  int trackerItemPoolType, trackerHowManyItemsInPool, trackerBuy;
+  int trackerItemPoolType;
   int userCreditAmount;
   do{
-  cout << "Enter 'N' for normal Overwatch Loot 'E' for event only Overwatch Loot or 'B' for both" << endl;
+  cout << "Enter 'N' for normal Overwatch Loot 'B' for both normal and Event Items" << endl;
   cin >> userInput;
-}while(userInput != "N" && userInput != "n" && userInput != "E" && userInput != "e" && userInput != "B" && userInput != "b");
+}while(userInput != "N" && userInput != "n" && userInput != "B" && userInput != "b");
   // must add a check to see whether to buy items or not
   if(userInput == "N" || userInput == "n"){trackerItemPoolType = NORMAL;}
-  else if(userInput == "E" || userInput == "e"){trackerItemPoolType = EVENT;}
-  else if(userInput == "B" || userInput == "b"){trackerItemPoolType = BOTH;}
+  else if(userInput == "B" || userInput == "b"){trackerItemPoolType = BOTH;
 
+  int maxHeldItems[8] = {NORMAL_COMMON, NORMAL_RARE, NORMAL_EPIC, NORMAL_LEGENDARY, EVENT_COMMON, EVENT_RARE, EVENT_EPIC, EVENT_LEGENDARY};
 
-
-
-
-  // for (int i = 0; i < trackerHowManyItemsInPool; i++){
-  // item[i]= false;
-  // }
-  int maxHeldItems[8];
-
-  int totalNumberOfItemsTracker;
+  int totalNumberOfItemsTracker
+  
   switch (trackerItemPoolType){
-    case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY;  break;
-    case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY;  maxHeldItems[0] = NORMAL_COMMON; maxHeldItems[1] = NORMAL_RARE; maxHeldItems[2] = NORMAL_EPIC; maxHeldItems[3] = NORMAL_LEGENDARY; maxHeldItems[4] = EVENT_COMMON; maxHeldItems[5] = EVENT_RARE; maxHeldItems[6] = EVENT_EPIC; maxHeldItems[7] = EVENT_LEGENDARY; break;
+    case NORMAL: totalNumberOfItemsTracker = NORMAL_COMMON + NORMAL_RARE + NORMAL_EPIC + NORMAL_LEGENDARY; break;
+    case BOTH: totalNumberOfItemsTracker = BOTH_COMMON + BOTH_RARE + BOTH_EPIC + BOTH_LEGENDARY;  break;
   }
-  bool *item = new bool[trackerHowManyItemsInPool];
+  bool *item = new bool[totalNumberOfItemsTracker];
   int lootBoxAvg = 0;
   int loopCount = 1000;
     for(int i = 0; i < loopCount; i++){
@@ -98,7 +91,7 @@ int main(void){
       // in a loot box I want it to roll 4 times and on the fourth see if a rare or better has spawned.
 
       int heldItems[8] = {0,0,0,0,0,0,0,0};
-      if(i > 0) for (int k = 0; k < trackerHowManyItemsInPool; k++) item[k] = false; // set everything to 0 after the first go around
+      if(i > 0) for (int k = 0; k < totalNumberOfItemsTracker; k++) item[k] = false; // set everything to 0 after the first go around
       lootBoxCount = 0;
       int totalNumberOfItemsHeld = 0;
       userCreditAmount = 0;
@@ -108,15 +101,15 @@ int main(void){
       int itemsToAdd;
       int rareCounter = 0;
       int eventItemCounter = 0;
-      bool isEventItem = false;
       for(int j = 0;j < 4; j++){
+        bool isEventItem = false;
         randomChance = rand() % PERCENT_CHANCE_TOTAL;
-        if (trackerItemPoolType == EVENT || trackerItemPoolType == BOTH){
+        if (trackerItemPoolType == BOTH){
           randomChanceEvent = rand() % PERCENT_CHANCE_TOTAL;
           if(randomChanceEvent < PERCENT_CHANCE_EVENT || eventItemCounter == 0 && j == 3){eventItemCounter++; isEventItem = true;}
         }
         if (randomChance >= PERCENT_CHANCE_COMMON){rareCounter ++;} // if its higher than common we have a rare
-        if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;}
+        if(j == 3 && rareCounter == 0){randomChance = rand() % (PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC + PERCENT_CHANCE_LEGENDARY) + PERCENT_CHANCE_COMMON;} // this i here becasue in OW oyu have to have a rare or bettre
         if(randomChance < PERCENT_CHANCE_COMMON){ // this will mean we got a common
           switch(trackerItemPoolType){
             case NORMAL: randomChance = fmod(rand(), NORMAL_COMMON); break;
@@ -222,7 +215,7 @@ int main(void){
         itemsToAdd = NORMAL_COMMON;
         while (userCreditAmount >= 75 && heldItems[4] != maxHeldItems[4]){
           for(int k = 0; k < maxHeldItems[4]; k++){
-            if (!item[k]){item[k] = true; totalNumberOfItemsHeld++; heldItems[4]++; userCreditAmount-= 75; break;}
+            if (!item[k + itemsToAdd]){item[k+ itemsToAdd] = true; totalNumberOfItemsHeld++; heldItems[4]++; userCreditAmount-= 75; break;}
           }
         }
         itemsToAdd = BOTH_COMMON + NORMAL_RARE;
