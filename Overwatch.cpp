@@ -34,7 +34,25 @@ using namespace std;
 #define DUPLICATE_CREDIT_EPIC 50
 #define DUPLICATE_CREDIT_LEGENDARY 200
 
-int main(void){
-  srand(time(NULL));
+void lootboxOpen(int &test);
+void purchaseItem(int &test);
+
+int main(int argc, char *argv[]) {
+	srand(time(NULL));
+
+	//holding output for visual studio this code can be ignored if on linux
+	cin.clear();
+	cin.ignore();
+	cin.get();
+	return 0;
+}
+
+void lootboxOpen(int &test)
+{
+
+}
+
+void purchaseItem(int &test)
+{
 
 }
