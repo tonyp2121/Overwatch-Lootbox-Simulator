@@ -34,8 +34,8 @@ using namespace std;
 #define DUPLICATE_CREDIT_EPIC 50
 #define DUPLICATE_CREDIT_LEGENDARY 200
 
-void lootboxOpen(int &test);
-void purchaseItem(int &test);
+void lootboxOpen(bool &ItemList);
+void purchaseItem(bool &ItemList);
 
 int main(int argc, char *argv[]) {
 	srand(time(NULL));
@@ -47,12 +47,12 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void lootboxOpen(int &test)
+void lootboxOpen(bool &ItemList)
 {
 
 }
 
-void purchaseItem(int &test)
+void purchaseItem(bool &ItemList)
 {
 
 }
