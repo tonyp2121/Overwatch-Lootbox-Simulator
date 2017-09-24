@@ -34,8 +34,13 @@ using namespace std;
 #define DUPLICATE_CREDIT_EPIC 50
 #define DUPLICATE_CREDIT_LEGENDARY 200
 
-void lootboxOpen(bool &ItemList);
-void purchaseItem(bool &ItemList);
+#define BASE_COMMON_AMOUNT 860
+#define BASE_RARE_AMOUNT 309
+#define BASE_EPIC_AMOUNT 250
+#define BASE_LEGENDARY_AMOUNT 105
+
+void LootboxOpen(bool *ItemList);
+void PurchaseItem(bool *ItemList);
 
 int main(int argc, char *argv[]) {
 	srand(time(NULL));
@@ -47,12 +52,12 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void lootboxOpen(bool &ItemList)
+void LootboxOpen(bool *ItemList)
 {
 
 }
 
-void purchaseItem(bool &ItemList)
+void PurchaseItem(bool *ItemList)
 {
 
 }

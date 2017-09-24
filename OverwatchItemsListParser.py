@@ -9,7 +9,8 @@ Categories = ['sprays','voicelines','poses','icons','intros','emotes','skins']
 Heros = ['all','ana','bastion','dva','doomfist','genji','hanzo','junkrat','lucio',
         'mccree','mei','mercy','orisa','pharah','reaper','reinhardt','roadhog','soldier-76',
         'sombra','symmetra','torbjorn','tracer','widowmaker','winston','zarya','zenyatta']
-DefaultItems=[0,1,1,0,1,1,1]
+DefaultItems=[0,1,1,0,1,1,1] # Each character starts with a default skin, default taunt, 
+                             # default intro, default pose, and default voiceline
 
 #
 # Because of the way the json file is built skins dont have built in rarity  and
