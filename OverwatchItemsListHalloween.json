@@ -1,0 +1,442 @@
+{
+  "all": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "boop": true,
+      "boo": true,
+      "bats": true,
+      "never-die": true,
+      "candyball": true,
+      "fangs": true,
+      "gummy-hog": true,
+      "halloween-terror": true,
+      "pumpkins": true,
+      "witchs-brew": true,
+      "halloween-special": true,
+      "junkensteins-revenge": true,
+      "rise-of-the-zomnics": true,
+      "the-reapening": true
+    },
+    "voicelines": {},
+    "poses": {},
+    "icons": {
+      "never-die": true,
+      "bewitching": true,
+      "calavera": true,
+      "candle": true,
+      "eyeball": true,
+      "ghostymari": true,
+      "halloween-terror-2016": true,
+      "spider": true,
+      "superstition": true,
+      "wolf": true,
+      "witchs-hat": true,
+      "witchs-brew": true,
+      "vampachimari": true,
+      "tombstone": true
+    }
+  },
+  "ana": {
+    "skins": {
+      "ana-ghoul": true
+    },
+    "emotes": {
+      "ana-candy": true
+    },
+    "intros": {},
+    "sprays": {
+      "ana-trick-or-treat": true
+    },
+    "voicelines": {
+      "ana-are-you-scared": true
+    },
+    "poses": {
+      "ana-rip": true
+    },
+    "icons": {}
+  },
+  "bastion": {
+    "skins": {
+      "bastion-tombstone": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "bastion-trick-or-treat": true
+    },
+    "voicelines": {
+      "bastion-wwwooooo": true
+    },
+    "poses": {
+      "bastion-rip": true
+    },
+    "icons": {}
+  },
+  "dva": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "dva-trick-or-treat": true
+    },
+    "voicelines": {
+      "dva-happy-halloween": true
+    },
+    "poses": {
+      "dva-rip": true
+    },
+    "icons": {}
+  },
+  "doomfist": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {},
+    "voicelines": {},
+    "poses": {},
+    "icons": {}
+  },
+  "genji": {
+    "skins": {},
+    "emotes": {},
+    "intros": {
+      "genji-pumpkin-carving": true
+    },
+    "sprays": {
+      "genji-trick-or-treat": true
+    },
+    "voicelines": {
+      "genji-my-halloween-costume": true
+    },
+    "poses": {
+      "genji-rip": true
+    },
+    "icons": {}
+  },
+  "hanzo": {
+    "skins": {
+      "hanzo-demon": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "hanzo-trick-or-treat": true
+    },
+    "voicelines": {
+      "hanzo-you-are-already-dead": true
+    },
+    "poses": {
+      "hanzo-rip": true
+    },
+    "icons": {}
+  },
+  "junkrat": {
+    "skins": {
+      "junkrat-dr-junkenstein": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "junkrat-trick-or-treat": true
+    },
+    "voicelines": {
+      "junkrat-happy-halloween": true
+    },
+    "poses": {
+      "junkrat-rip": true
+    },
+    "icons": {
+      "junkrat-the-doctor": true
+    }
+  },
+  "lucio": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "lucio-trick-or-treat": true
+    },
+    "voicelines": {
+      "lucio-killed-it": true
+    },
+    "poses": {
+      "lucio-rip": true
+    },
+    "icons": {}
+  },
+  "mccree": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "mccree-trick-or-treat": true
+    },
+    "voicelines": {
+      "mccree-its-your-funeral": true
+    },
+    "poses": {
+      "mccree-rip": true
+    },
+    "icons": {}
+  },
+  "mei": {
+    "skins": {},
+    "emotes": {},
+    "intros": {
+      "mei-ice-scream": true
+    },
+    "sprays": {
+      "mei-trick-or-treat": true
+    },
+    "voicelines": {
+      "mei-scary": true
+    },
+    "poses": {
+      "mei-rip": true
+    },
+    "icons": {}
+  },
+  "mercy": {
+    "skins": {
+      "mercy-witch": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "mercy-trick-or-treat": true
+    },
+    "voicelines": {
+      "mercy-superstition": true
+    },
+    "poses": {
+      "mercy-rip": true
+    },
+    "icons": {
+      "mercy-the-witch": true
+    }
+  },
+  "orisa": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {},
+    "voicelines": {},
+    "poses": {},
+    "icons": {}
+  },
+  "pharah": {
+    "skins": {
+      "pharah-possessed": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "pharah-trick-or-treat": true
+    },
+    "voicelines": {
+      "pharah-dead-or-alive": true
+    },
+    "poses": {
+      "pharah-rip": true
+    },
+    "icons": {}
+  },
+  "reaper": {
+    "skins": {
+      "reaper-pumpkin": true
+    },
+    "emotes": {},
+    "intros": {
+      "reaper-eternal-rest": true
+    },
+    "sprays": {
+      "reaper-trick-or-treat": true
+    },
+    "voicelines": {
+      "reaper-i-work-the-graveyard-shift": true
+    },
+    "poses": {
+      "reaper-rip": true
+    },
+    "icons": {
+      "reaper-the-reaper": true
+    }
+  },
+  "reinhardt": {
+    "skins": {
+      "reinhardt-coldhardt": true
+    },
+    "emotes": {
+      "reinhardt-pumpkin-smash": true
+    },
+    "intros": {},
+    "sprays": {
+      "reinhardt-trick-or-treat": true
+    },
+    "voicelines": {
+      "reinhardt-smashing": true
+    },
+    "poses": {
+      "reinhardt-rip": true
+    },
+    "icons": {}
+  },
+  "roadhog": {
+    "skins": {
+      "roadhog-junkensteins-monster": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "roadhog-trick-or-treat": true
+    },
+    "voicelines": {
+      "roadhog-want-some-candy": true
+    },
+    "poses": {
+      "roadhog-rip": true
+    },
+    "icons": {
+      "roadhog-the-monster": true
+    }
+  },
+  "soldier-76": {
+    "skins": {
+      "soldier-76-immortal": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "soldier-76-trick-or-treat": true
+    },
+    "voicelines": {
+      "soldier-76-knock-knock": true
+    },
+    "poses": {
+      "soldier-76-rip": true
+    },
+    "icons": {}
+  },
+  "sombra": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {},
+    "voicelines": {},
+    "poses": {},
+    "icons": {}
+  },
+  "symmetra": {
+    "skins": {
+      "symmetra-vampire": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "symmetra-trick-or-treat": true
+    },
+    "voicelines": {
+      "symmetra-a-frightening-thought": true
+    },
+    "poses": {
+      "symmetra-rip": true
+    },
+    "icons": {}
+  },
+  "torbjorn": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "torbjorn-trick-or-treat": true
+    },
+    "voicelines": {
+      "torbjorn-if-you-build-it": true
+    },
+    "poses": {
+      "torbjorn-rip": true
+    },
+    "icons": {}
+  },
+  "tracer": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "tracer-trick-or-treat": true
+    },
+    "voicelines": {
+      "tracer-ooh-scary": true
+    },
+    "poses": {
+      "tracer-rip": true
+    },
+    "icons": {}
+  },
+  "widowmaker": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "widowmaker-trick-or-treat": true
+    },
+    "voicelines": {
+      "widowmaker-the-party-is-over": true
+    },
+    "poses": {
+      "widowmaker-rip": true
+    },
+    "icons": {}
+  },
+  "winston": {
+    "skins": {},
+    "emotes": {
+      "winston-shadow-puppets": true
+    },
+    "intros": {},
+    "sprays": {
+      "winston-trick-or-treat": true
+    },
+    "voicelines": {
+      "winston-this-is-not-a-costume": true
+    },
+    "poses": {
+      "winston-rip": true
+    },
+    "icons": {}
+  },
+  "zarya": {
+    "skins": {},
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "zarya-trick-or-treat": true
+    },
+    "voicelines": {
+      "zarya-never-forget-the-fallen": true
+    },
+    "poses": {
+      "zarya-rip": true
+    },
+    "icons": {}
+  },
+  "zenyatta": {
+    "skins": {
+      "zenyatta-skullyatta": true
+    },
+    "emotes": {},
+    "intros": {},
+    "sprays": {
+      "zenyatta-trick-or-treat": true
+    },
+    "voicelines": {
+      "zenyatta-trick-or-treat": true
+    },
+    "poses": {
+      "zenyatta-rip": true
+    },
+    "icons": {}
+  }
+}
