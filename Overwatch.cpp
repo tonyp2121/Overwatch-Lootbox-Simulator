@@ -50,22 +50,35 @@ using namespace std;
 #define BASE_EPIC_AMOUNT 250
 #define BASE_LEGENDARY_AMOUNT 105
 
-void LootboxOpen(bool *ItemList);
-void PurchaseItem(bool *ItemList);
+void LootboxOpen(bool &ItemList, int &CreditAmount);
+void PurchaseItem(bool &ItemList, int &CreditAmount);
 
 int main(int argc, char *argv[]) {
 	srand(time(NULL));
-	
+
 
 	return 0;
 }
 
-void LootboxOpen(bool *ItemList)
+void LootboxOpen(bool &ItemList, int &CreditAmount)
 {
+	int PercentageChance = rand() % PERCENT_CHANCE_TOTAL;
+	if (PercentageChance < PERCENT_CHANCE_COMMON){
+		
+	}
+	else if(PercentageChance <  PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){
 
+	}
+	else if(PercentageChance < PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE + PERCENT_CHANCE_EPIC){
+
+	}
+	else{
+
+	}
+	return;
 }
 
-void PurchaseItem(bool *ItemList)
+void PurchaseItem(bool &ItemList, int &CreditAmount)
 {
 
 }
