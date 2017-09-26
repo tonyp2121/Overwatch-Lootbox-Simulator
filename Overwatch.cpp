@@ -63,8 +63,19 @@ int main(int argc, char *argv[]) {
 void LootboxOpen(bool &ItemList, int &CreditAmount)
 {
 	int PercentageChance = rand() % PERCENT_CHANCE_TOTAL;
+	int RandomItem = 0;
+	int LoopCount = 0;
 	if (PercentageChance < PERCENT_CHANCE_COMMON){
-		
+		do {
+			RandomItem = rand() % BASE_COMMON_AMOUNT;
+			if (!ItemList[RandomItem] && ){
+				ItemList[RandomItem] = true;
+				break;
+			}
+			if(LoopCount > 100){
+				// Do I want a global boolean or should I pass one to the function? Leaning towards the latter than the former
+			}
+		} while(1);
 	}
 	else if(PercentageChance <  PERCENT_CHANCE_COMMON + PERCENT_CHANCE_RARE){
 
